@@ -14,3 +14,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(tree.root);
+tree.insert(2);
+prettyPrint(tree.root);

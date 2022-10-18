@@ -33,4 +33,15 @@ export default class Tree {
     node.right = this.sortedArrayToBST(arr, mid + 1, end);
     return node;
   }
+
+  insert(data, node = this.root) {
+    if (node == null) {
+      node = new Node(data);
+      return node;
+    }
+
+    if (data < node.data) node.left = this.insert(data, node.left);
+    else if (data > node.data) node.right = this.insert(data, node.right);
+    return node;
+  }
 }
