@@ -70,4 +70,23 @@ export default class Tree {
     }
     return minv;
   }
+
+  find(data, node = this.root) {
+    if (node.data === data) return node;
+
+    if (data < node.data) this.find(data, node.left);
+    else this.find(data, node.right);
+    return node;
+  }
+  /*
+  insert(data, node = this.root) {
+    if (node == null) {
+      node = new Node(data);
+      return node;
+    }
+
+    if (data < node.data) node.left = this.insert(data, node.left);
+    else if (data > node.data) node.right = this.insert(data, node.right);
+    return node;
+  }*/
 }
