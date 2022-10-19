@@ -44,4 +44,30 @@ export default class Tree {
     else if (data > node.data) node.right = this.insert(data, node.right);
     return node;
   }
+
+  delete(data, node = this.root) {
+    if (node == null) return node;
+
+    if (data < node.data) node.left = this.delete(data, node.left);
+    else if (data > node.data) node.right = this.delete(data, node.right);
+    else {
+      // node with only one child or no child
+      if (node.left == null) return node.right;
+      if (node.right == null) return node.left;
+
+      // node with two children
+      node.data = this.minValue(node.right);
+      node.right = this.delete(node.data, node.right);
+    }
+    return node;
+  }
+
+  minValue(node) {
+    let minv = node.data;
+    while (node.left != null) {
+      minv = node.left.data;
+      node = node.left;
+    }
+    return minv;
+  }
 }
