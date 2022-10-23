@@ -78,15 +78,23 @@ export default class Tree {
     else this.find(data, node.right);
     return node;
   }
-  /*
-  insert(data, node = this.root) {
-    if (node == null) {
-      node = new Node(data);
-      return node;
-    }
 
-    if (data < node.data) node.left = this.insert(data, node.left);
-    else if (data > node.data) node.right = this.insert(data, node.right);
-    return node;
-  }*/
+  levelOrder(func = this.toArray) {
+    if (this.root === null) return;
+    const queue = [];
+    const treeTransversed = [];
+    queue.push(this.root);
+    while (queue.length > 0) {
+      const node = queue[0];
+      func(treeTransversed, node.data);
+      if (node.left != null) queue.push(node.left);
+      if (node.right != null) queue.push(node.right);
+      queue.shift();
+    }
+    return treeTransversed;
+  }
+
+  toArray(arr, value) {
+    arr.push(value);
+  }
 }

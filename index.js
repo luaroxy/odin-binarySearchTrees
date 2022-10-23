@@ -15,7 +15,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(tree.root);
 tree.insert(2);
+console.log('Insert "2":');
 prettyPrint(tree.root);
 tree.delete(1);
+console.log('Delete "1":');
 prettyPrint(tree.root);
+console.log('Find "8":');
 console.log(tree.find(8));
+console.log(tree.levelOrder());
