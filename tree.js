@@ -3,6 +3,10 @@ import Node from "./node.js";
 export default class Tree {
   constructor(arr) {
     this.root = this.buildTree(arr);
+    this.levelOrderTransversed = [];
+    this.preorderTransversed = [];
+    this.inorderTransversed = [];
+    this.postorderTransversed = [];
   }
 
   buildTree(arr) {
@@ -82,16 +86,39 @@ export default class Tree {
   levelOrder(func = this.toArray) {
     if (this.root === null) return;
     const queue = [];
-    const treeTransversed = [];
     queue.push(this.root);
     while (queue.length > 0) {
       const node = queue[0];
-      func(treeTransversed, node.data);
+      func(this.levelOrderTransversed, node.data);
       if (node.left != null) queue.push(node.left);
       if (node.right != null) queue.push(node.right);
       queue.shift();
     }
-    return treeTransversed;
+    return this.levelOrderTransversed;
+  }
+
+  inorder(func = this.toArray, node = this.root) {
+    if (node === null) return;
+    this.inorder(func, node.left);
+    func(this.inorderTransversed, node.data);
+    this.inorder(func, node.right);
+    return this.inorderTransversed;
+  }
+
+  preorder(func = this.toArray, node = this.root) {
+    if (node === null) return;
+    func(this.preorderTransversed, node.data);
+    this.preorder(func, node.left);
+    this.preorder(func, node.right);
+    return this.preorderTransversed;
+  }
+
+  postorder(func = this.toArray, node = this.root) {
+    if (node === null) return;
+    this.postorder(func, node.left);
+    this.postorder(func, node.right);
+    func(this.postorderTransversed, node.data);
+    return this.postorderTransversed;
   }
 
   toArray(arr, value) {

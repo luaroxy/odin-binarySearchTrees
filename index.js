@@ -23,3 +23,6 @@ prettyPrint(tree.root);
 console.log('Find "8":');
 console.log(tree.find(8));
 console.log(tree.levelOrder());
+console.log(tree.preorder());
+console.log(tree.inorder());
+console.log(tree.postorder());
