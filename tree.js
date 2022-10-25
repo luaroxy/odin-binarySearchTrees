@@ -78,9 +78,8 @@ export default class Tree {
   find(data, node = this.root) {
     if (node.data === data) return node;
 
-    if (data < node.data) this.find(data, node.left);
-    else this.find(data, node.right);
-    return node;
+    if (data < node.data) return this.find(data, node.left);
+    if (data > node.data) return this.find(data, node.right);
   }
 
   levelOrder(func = this.toArray) {
@@ -123,5 +122,12 @@ export default class Tree {
 
   toArray(arr, value) {
     arr.push(value);
+  }
+
+  height(node) {
+    if (node === null) return 0;
+    const leftHeight = this.height(node.left);
+    const rightHeight = this.height(node.right);
+    return Math.max(leftHeight, rightHeight) + 1;
   }
 }
