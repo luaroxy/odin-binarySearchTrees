@@ -1,4 +1,4 @@
-# odin-binarySearchTrees
+# Binary Search Tree
 
 Balanced binary search trees implemented with JavaScript
 
