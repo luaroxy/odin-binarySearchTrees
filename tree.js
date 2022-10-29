@@ -83,6 +83,7 @@ export default class Tree {
   }
 
   levelOrder(func = this.toArray) {
+    this.levelOrderTransversed = [];
     if (this.root === null) return;
     const queue = [];
     queue.push(this.root);
@@ -96,26 +97,41 @@ export default class Tree {
     return this.levelOrderTransversed;
   }
 
-  inorder(func = this.toArray, node = this.root) {
+  inorder() {
+    this.inorderTransversed = [];
+    return this.recInorder();
+  }
+
+  recInorder(func = this.toArray, node = this.root) {
     if (node === null) return;
-    this.inorder(func, node.left);
+    this.recInorder(func, node.left);
     func(this.inorderTransversed, node.data);
-    this.inorder(func, node.right);
+    this.recInorder(func, node.right);
     return this.inorderTransversed;
   }
 
-  preorder(func = this.toArray, node = this.root) {
+  preorder() {
+    this.preorderTransversed = [];
+    return this.recPreorder();
+  }
+
+  recPreorder(func = this.toArray, node = this.root) {
     if (node === null) return;
     func(this.preorderTransversed, node.data);
-    this.preorder(func, node.left);
-    this.preorder(func, node.right);
+    this.recPreorder(func, node.left);
+    this.recPreorder(func, node.right);
     return this.preorderTransversed;
   }
 
-  postorder(func = this.toArray, node = this.root) {
+  postorder() {
+    this.postorderTransversed = [];
+    return this.recPostorder();
+  }
+
+  recPostorder(func = this.toArray, node = this.root) {
     if (node === null) return;
-    this.postorder(func, node.left);
-    this.postorder(func, node.right);
+    this.recPostorder(func, node.left);
+    this.recPostorder(func, node.right);
     func(this.postorderTransversed, node.data);
     return this.postorderTransversed;
   }
@@ -139,7 +155,6 @@ export default class Tree {
 
   isBalanced() {
     const allNodes = this.inorder();
-
     for (let i = 0; i < allNodes.length; i++) {
       const node = this.find(allNodes[i]);
       const leftSubtree = this.height(node.left);
